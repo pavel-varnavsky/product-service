@@ -1,0 +1,25 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: product-service
+
+integration:
+  review-service:
+    url: ...
+  adidas-service:
+    url: https://www.adidas.co.uk/api
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: *
+
+security:
+  filter:
+    dispatcher-types:
+      - request
+      - async
+      - error
+      - forward
