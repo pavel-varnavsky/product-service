@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.model.adidas;
+package me.varnavsky.product_service.model.adidas;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

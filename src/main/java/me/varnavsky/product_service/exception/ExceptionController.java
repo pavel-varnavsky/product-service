@@ -1,7 +1,7 @@
-package me.varnavsky.productservice.exception;
+package me.varnavsky.product_service.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import me.varnavsky.productservice.model.ResponseWrapper;
+import me.varnavsky.product_service.model.ResponseWrapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

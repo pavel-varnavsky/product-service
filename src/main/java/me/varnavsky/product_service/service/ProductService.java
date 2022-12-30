@@ -1,10 +1,10 @@
-package me.varnavsky.productservice.service;
+package me.varnavsky.product_service.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import me.varnavsky.productservice.exception.IntegrationException;
-import me.varnavsky.productservice.model.adidas.AdidasDto;
+import me.varnavsky.product_service.exception.IntegrationException;
+import me.varnavsky.product_service.model.adidas.AdidasDto;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -22,6 +22,12 @@ public class ProductService {
 
   private final WebClient adidasWebClient;
 
+  /**
+   * Get product info from Adidas public API
+   *
+   * @param productId Product id
+   * @return Adidas DTO
+   */
   @SneakyThrows
   public AdidasDto getAdidasProduct(String productId) {
     AdidasDto adidasDto =

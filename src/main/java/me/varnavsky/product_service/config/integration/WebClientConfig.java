@@ -1,9 +1,9 @@
-package me.varnavsky.productservice.config.integration;
+package me.varnavsky.product_service.config.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
-import me.varnavsky.productservice.config.AdidasServiceIntegration;
-import me.varnavsky.productservice.config.ReviewServiceIntegration;
+import me.varnavsky.product_service.config.AdidasServiceIntegration;
+import me.varnavsky.product_service.config.ReviewServiceIntegration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.codec.json.Jackson2JsonDecoder;

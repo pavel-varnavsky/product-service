@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.exception;
+package me.varnavsky.product_service.exception;
 
 
 public class IntegrationException extends RuntimeException {

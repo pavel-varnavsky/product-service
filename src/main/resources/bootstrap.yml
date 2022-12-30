@@ -6,20 +6,8 @@ spring:
 
 integration:
   review-service:
-    url: ...
+    url: http://localhost:8082
+    login: user
+    password: user
   adidas-service:
     url: https://www.adidas.co.uk/api
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: *
-
-security:
-  filter:
-    dispatcher-types:
-      - request
-      - async
-      - error
-      - forward

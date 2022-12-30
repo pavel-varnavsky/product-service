@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.model.review;
+package me.varnavsky.product_service.model.review;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

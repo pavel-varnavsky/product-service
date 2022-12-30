@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.config;
+package me.varnavsky.product_service.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

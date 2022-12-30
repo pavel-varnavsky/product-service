@@ -1,10 +1,10 @@
-package me.varnavsky.productservice.service;
+package me.varnavsky.product_service.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.varnavsky.productservice.exception.IntegrationException;
-import me.varnavsky.productservice.model.ResponseWrapper;
-import me.varnavsky.productservice.model.review.ReviewDto;
+import me.varnavsky.product_service.exception.IntegrationException;
+import me.varnavsky.product_service.model.ResponseWrapper;
+import me.varnavsky.product_service.model.review.ReviewDto;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

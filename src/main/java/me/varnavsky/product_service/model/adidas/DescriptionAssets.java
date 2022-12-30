@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.model.adidas;
+package me.varnavsky.product_service.model.adidas;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,10 +1,10 @@
-package me.varnavsky.productservice.controller;
+package me.varnavsky.product_service.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import me.varnavsky.productservice.facade.ProductFacade;
-import me.varnavsky.productservice.model.Product;
-import me.varnavsky.productservice.model.ResponseWrapper;
+import me.varnavsky.product_service.facade.ProductFacade;
+import me.varnavsky.product_service.model.Product;
+import me.varnavsky.product_service.model.ResponseWrapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +20,14 @@ public class ProductController {
 
   private final ProductFacade productFacade;
 
+  /**
+   * Get product info from 2 sources:
+   * - Adidas public API
+   * - own review service
+   *
+   * @param productId Product id
+   * @return Composed object from both sources
+   */
   @GetMapping("/{productId}")
   public ResponseWrapper<Product> getProduct(@PathVariable String productId) {
     return ResponseWrapper.of(productFacade.getProduct(productId));

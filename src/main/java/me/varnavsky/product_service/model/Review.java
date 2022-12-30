@@ -1,4 +1,4 @@
-package me.varnavsky.productservice.model;
+package me.varnavsky.product_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

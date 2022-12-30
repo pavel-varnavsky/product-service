@@ -1,4 +1,4 @@
-package me.varnavsky.productservice;
+package me.varnavsky.product_service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;

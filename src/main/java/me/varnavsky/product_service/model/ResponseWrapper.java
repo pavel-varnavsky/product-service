@@ -1,11 +1,10 @@
-package me.varnavsky.productservice.model;
+package me.varnavsky.product_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.http.ResponseEntity;
 
 import java.time.ZonedDateTime;
 
