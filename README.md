@@ -9,7 +9,7 @@ For easier access to API there was added Swagger dependency. It's accessible thr
 Run standalone:
 1. `mvn clean package`
 2. `cd target`
-3`java -jar product-service-0.0.1-SNAPSHOT.jar`
+3. `java -jar product-service-0.0.1-SNAPSHOT.jar`
 
 Run in Docker:
 1. `mvn clean package`
