@@ -20,7 +20,7 @@ import java.util.Optional;
 @Slf4j
 public class ReviewService {
 
-  private static final String REVIEW_URI = "/review/{productId}";
+  private static final String REVIEW_URI = "/review/product/{productId}";
 
   private final WebClient reviewWebClient;
 
