@@ -4,14 +4,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import me.varnavsky.product_service.exception.IntegrationException;
+import me.varnavsky.product_service.model.ErrorDto;
 import me.varnavsky.product_service.model.adidas.AdidasDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import reactor.util.retry.Retry;
-
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -36,25 +34,32 @@ public class ProductService {
             .uri(uriBuilder -> uriBuilder.path(PRODUCT_URI).build(productId))
             .retrieve()
             .onStatus(
-                httpStatus -> !httpStatus.is2xxSuccessful(),
+                httpStatus -> httpStatus.equals(HttpStatus.NOT_FOUND),
                 error ->
-                    Mono.error(
-                        new IntegrationException(
-                            "adidas integration exception with incorrect status")))
+                    error
+                        .bodyToMono(ErrorDto.class)
+                        .flatMap(
+                            body -> {
+                              log.error("{} : {}", productId, body.getMessage());
+                              return Mono.error(
+                                  new IntegrationException(productId + " : " + body.getMessage()));
+                            }))
+            .onStatus(
+                httpStatus -> !httpStatus.is2xxSuccessful(),
+                error -> {
+                  log.error("adidas integration error: {}", error);
+                  return Mono.error(new IntegrationException("adidas integration exception"));
+                })
             .bodyToMono(AdidasDto.class)
-            .retryWhen(Retry.fixedDelay(2, Duration.of(5, ChronoUnit.SECONDS)))
-            .onErrorContinue(
-                (throwable, o) -> {
-                  log.info("adidas throwable => {}", throwable.toString());
-                  throw new IntegrationException("adidas integration exception");
+            .onErrorMap(
+                Throwable.class,
+                error -> {
+                  log.error("adidas integration exception: {}", error.getMessage());
+                  return new IntegrationException("adidas integration general exception");
                 })
             .block();
 
     log.info("received adidas product: {}", adidasDto);
-
-    if (adidasDto == null) {
-      throw new IntegrationException("adidas integration received empty result");
-    }
 
     return adidasDto;
   }

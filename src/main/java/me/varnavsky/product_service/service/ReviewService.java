@@ -9,11 +9,6 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import reactor.util.retry.Retry;
-
-import java.time.Duration;
-import java.time.temporal.ChronoUnit;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,30 +24,25 @@ public class ReviewService {
         reviewWebClient
             .get()
             .uri(uriBuilder -> uriBuilder.path(REVIEW_URI).build(productId))
-            //                .headers(header -> header.setBearerAuth("SOME_TOKEN"))
             .retrieve()
             .onStatus(
                 httpStatus -> !httpStatus.is2xxSuccessful(),
-                error -> Mono.error(new IntegrationException("review integration exception")))
+                error ->
+                    Mono.error(
+                        new IntegrationException(
+                            "review integration exception with status: " + error.statusCode())))
             .bodyToMono(new ParameterizedTypeReference<ResponseWrapper<ReviewDto>>() {})
-            .retryWhen(Retry.fixedDelay(2, Duration.of(5, ChronoUnit.SECONDS)))
-            .onErrorResume(
+            .onErrorMap(
                 Throwable.class,
-                ex -> {
-                  log.error("review throwable => {}", ex.toString());
-                  throw new IntegrationException("review integration exception");
+                error -> {
+                  log.error("review integration exception: {}", error.getMessage());
+                  return new IntegrationException("review integration general exception");
                 })
             .block();
 
     log.info("received product review: {}", reviewDtoWrapper);
 
-    if (Optional.ofNullable(reviewDtoWrapper)
-            .orElseThrow(() -> new IntegrationException("review integration received empty result"))
-            .getPayload()
-        == null) {
-      return new ReviewDto();
-    }
-
+    assert reviewDtoWrapper != null;
     return reviewDtoWrapper.getPayload();
   }
 }
